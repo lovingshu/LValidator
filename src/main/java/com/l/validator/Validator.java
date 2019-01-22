@@ -542,6 +542,38 @@ public class Validator{
 		return beContains(o1,o2,null,null);
 	}
 	
+	/*   be not contains part    */
+	/**
+	 * 功能描述：判断给定对象是否在第二个对象中包含,可判定对象为<br/>
+	 * 			字符串 !=null&&.contains()>0<br/>
+	 * 			集合类 !=null&&.contains()>0<br/>
+	 * 			map类  !=null&&.containsKey()>0<br/>
+	 * 			<b style="color:red">不在上述类型中则直接抛异常</b>
+	 */
+	@SuppressWarnings("rawtypes")
+	public Validator beNotContains(Object o1,Object o2,Integer co,String ex){
+		beTrue(o1!=null&&o2!=null, co, ex);
+		if(o2 instanceof String){
+			beTrue(!((String) o2).contains(o1.toString()), co, ex);
+		}else if(o2 instanceof Collection){
+			beTrue(!((Collection) o2).contains(o1), co, ex);
+		}else if(o2 instanceof Map){
+			beTrue(!((Map) o2).containsKey(o1), co, ex);
+		}else{
+			beTrue(false,UNKOWN_TYPE_CO,UNKNOWN_TYPE_EX);
+		}
+		return this;
+	}
+	public Validator beNotContains(Object o1,Object o2,Integer co){
+		return beNotContains(o1,o2,co,null);
+	}
+	public Validator beNotContains(Object o1,Object o2,String ex){
+		return beNotContains(o1,o2,null,ex);
+	}
+	public Validator beNotContains(Object o1,Object o2){
+		return beNotContains(o1,o2,null,null);
+	}
+	
 	/*   be Number part    */
 	/**
 	 * 功能描述：判断给定对象是否为数字
